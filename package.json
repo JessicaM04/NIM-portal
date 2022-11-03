@@ -16,5 +16,9 @@
   "bugs": {
     "url": "https://github.com/JessicaM04/NIM-portal/issues"
   },
-  "homepage": "https://github.com/JessicaM04/NIM-portal#readme"
+  "homepage": "https://github.com/JessicaM04/NIM-portal#readme",
+  "dependencies": {
+    "apollo-server-express": "^3.11.1",
+    "graphql": "^16.6.0"
+  }
 }
