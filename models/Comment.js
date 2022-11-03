@@ -6,7 +6,7 @@ const commentSchema = new Schema(
   {
     commentText: {
       type: String,
-      required: 'You need to leave a thought!',
+      required: 'You need to leave a comment!',
       minlength: 1,
       maxlength: 280
     },
@@ -15,7 +15,7 @@ const commentSchema = new Schema(
       default: Date.now,
       get: timestamp => dateFormat(timestamp)
     },
-    username: {
+    donorname: {
       type: String,
       required: true
     },
@@ -32,6 +32,6 @@ commentSchema.virtual('reactionCount').get(function() {
   return this.reactions.length;
 });
 
-const Thought = model('Thought', thoughtSchema);
+const Comment = model('Comment', commentSchema);
 
-module.exports = Thought;
+module.exports = Comment;
