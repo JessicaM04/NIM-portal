@@ -11,11 +11,11 @@ db.once('open', async () => {
   const donorData = [];
 
   for (let i = 0; i < 50; i += 1) {
-    const donorname = faker.internet.donorName();
-    const email = faker.internet.email(donorrname);
+    const username = faker.internet.donorName();
+    const email = faker.internet.email(username);
     const password = faker.internet.password();
 
-    donorData.push({ donorname, email, password });
+    donorData.push({ username, email, password });
   }
 
   const createdDonors = await Donor.collection.insertMany(donorData);
@@ -41,9 +41,9 @@ db.once('open', async () => {
     const commentText = faker.lorem.words(Math.round(Math.random() * 20) + 1);
 
     const randomDonorIndex = Math.floor(Math.random() * createdDonors.ops.length);
-    const { donorname, _id: donorId } = createdDonors.ops[randomDonorIndex];
+    const { username, _id: donorId } = createdDonors.ops[randomDonorIndex];
 
-    const createdComment = await Comment.create({ commentText, donorname });
+    const createdComment = await Comment.create({ commentText, username });
 
     const updatedDonor = await Donor.updateOne(
       { _id: donorId },
@@ -58,14 +58,14 @@ db.once('open', async () => {
     const reactionBody = faker.lorem.words(Math.round(Math.random() * 20) + 1);
 
     const randomDonorIndex = Math.floor(Math.random() * createdDonors.ops.length);
-    const { donorname } = createdDonors.ops[randomDonorIndex];
+    const { username } = createdDonors.ops[randomDonorIndex];
 
     const randomCommentIndex = Math.floor(Math.random() * createtComments.length);
     const { _id: commentId } = createdComments[randomCommentIndex];
 
     await Comment.updateOne(
       { _id: commentId },
-      { $push: { reactions: { reactionBody, donorname } } },
+      { $push: { reactions: { reactionBody, username } } },
       { runValidators: true }
     );
   }
